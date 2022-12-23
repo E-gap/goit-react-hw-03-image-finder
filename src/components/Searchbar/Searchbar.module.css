@@ -1,0 +1,16 @@
+.searchbar {
+  display: flex;
+  background-color: aqua;
+  justify-content: center;
+}
+
+.button {
+  margin-right: 10px;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
