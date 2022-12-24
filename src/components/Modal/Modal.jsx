@@ -12,4 +12,9 @@ const Modal = ({ currentImage, offModal }) => {
   );
 };
 
+Modal.propTypes = {
+  currentImage: PropTypes.object.isRequired,
+  offModal: PropTypes.func.isRequired,
+};
+
 export default Modal;

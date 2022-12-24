@@ -1,9 +1,7 @@
 import React from 'react';
-//import { v4 as uuidv4 } from 'uuid';
 import css from './ImageGallery.module.css';
 import PropTypes from 'prop-types';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem.jsx';
-import * as basicLightbox from 'basiclightbox';
 
 const ImageGallery = ({ images, onModal }) => {
   return (
@@ -27,6 +25,7 @@ const ImageGallery = ({ images, onModal }) => {
 
 ImageGallery.propTypes = {
   images: PropTypes.array,
+  onModal: PropTypes.func.isRequired,
 };
 
 export default ImageGallery;

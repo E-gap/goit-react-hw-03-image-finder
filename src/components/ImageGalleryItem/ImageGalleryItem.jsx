@@ -1,7 +1,6 @@
 import React from 'react';
 import css from './ImageGalleryItem.module.css';
 import PropTypes from 'prop-types';
-//import { v4 as uuidv4 } from 'uuid';
 
 const ImageGalleryItem = ({ image }) => {
   return (
@@ -15,7 +14,7 @@ const ImageGalleryItem = ({ image }) => {
 };
 
 ImageGalleryItem.propTypes = {
-  image: PropTypes.object.isRequired,
+  image: PropTypes.object,
 };
 
 export default ImageGalleryItem;

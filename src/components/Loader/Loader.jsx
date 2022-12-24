@@ -1,6 +1,5 @@
 import React from 'react';
 import css from './Loader.module.css';
-import PropTypes from 'prop-types';
 import { Audio } from 'react-loader-spinner';
 
 const Loader = () => {
