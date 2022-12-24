@@ -30,7 +30,7 @@ export default class Searchbar extends React.Component {
       <header className={css.searchbar}>
         <form className={css.form} onSubmit={this.handlerSubmit}>
           <button type="submit" className={css.button}>
-            <span className={css.buttonLabel}>Search</span>
+            <span className={css.buttonLabel}></span>
           </button>
 
           <input
