@@ -1,10 +1,15 @@
 import React from 'react';
 import css from './Searchbar.module.css';
 import PropTypes from 'prop-types';
+import { FcSearch } from 'react-icons/fc';
 
 export default class Searchbar extends React.Component {
   state = {
     name: '',
+  };
+
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
   };
 
   handlerChangeName = event => {
@@ -30,7 +35,7 @@ export default class Searchbar extends React.Component {
       <header className={css.searchbar}>
         <form className={css.form} onSubmit={this.handlerSubmit}>
           <button type="submit" className={css.button}>
-            <span className={css.buttonLabel}></span>
+            <FcSearch className={css.icon} />
           </button>
 
           <input
@@ -47,7 +52,3 @@ export default class Searchbar extends React.Component {
     );
   }
 }
-
-Searchbar.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};

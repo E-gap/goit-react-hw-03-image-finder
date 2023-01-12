@@ -11,7 +11,6 @@
   width: 48px;
   height: 48px;
   border: 0;
-  background-image: url(../icons/search.png);
   background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
@@ -19,6 +18,11 @@
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   outline: none;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
 }
 
 .button:hover {

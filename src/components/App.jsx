@@ -36,16 +36,13 @@ export class App extends React.Component {
         .then(resp => {
           if (resp.hits.length === 0) {
             this.setState({ error: true });
+            return;
           }
-          return resp;
-        })
-        .then(resp => {
+
           this.setState(prevState => {
             return { images: [...prevState.images, ...resp.hits] };
           });
-          return resp;
-        })
-        .then(resp => {
+
           if (resp.totalHits <= this.state.images.length + resp.hits.length) {
             this.setState({ endSearch: true });
           }
