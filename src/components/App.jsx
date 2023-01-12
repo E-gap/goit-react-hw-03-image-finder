@@ -89,6 +89,7 @@ export class App extends React.Component {
   };
 
   render() {
+    const { error, images, isLoading, endSearch, currentImage } = this.state;
     return (
       <div
         style={{
@@ -102,19 +103,16 @@ export class App extends React.Component {
         }}
       >
         <Searchbar onSubmit={this.onSubmit} />
-        {this.state.error && <p>There aren't any results</p>}
-        {this.state.images.length > 0 && (
-          <ImageGallery images={this.state.images} onModal={this.onModal} />
+        {error && <p>There aren't any results</p>}
+        {images.length > 0 && (
+          <ImageGallery images={images} onModal={this.onModal} />
         )}
-        {this.state.isLoading && <Loader />}
-        {this.state.images.length > 0 && !this.state.endSearch && (
+        {isLoading && <Loader />}
+        {images.length > 0 && !endSearch && (
           <Button onLoadMore={this.onLoadMore} />
         )}
         {this.state.isModalOpen && (
-          <Modal
-            currentImage={this.state.currentImage}
-            offModal={this.offModal}
-          />
+          <Modal currentImage={currentImage} offModal={this.offModal} />
         )}
       </div>
     );
