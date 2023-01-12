@@ -13,15 +13,18 @@ export class App extends React.Component {
     isLoading: false,
     isModalOpen: false,
     currentImage: { src: '', alt: '' },
+    endSearch: false,
+    error: false,
   };
 
-  componentDidMount() {
+  /* componentDidMount() {
     window.addEventListener('keydown', event => {
+      console.log('hello');
       if (event.code === 'Escape') {
-        this.setState(state => ({ isModalOpen: false }));
+        this.setState({ isModalOpen: false });
       }
     });
-  }
+  } */
 
   componentDidUpdate(_, prevState) {
     if (
@@ -29,8 +32,7 @@ export class App extends React.Component {
       prevState.page !== this.state.page
     ) {
       this.setState({ isLoading: true });
-
-      setTimeout(this.query, 500);
+      this.query();
     }
   }
 
@@ -42,24 +44,34 @@ export class App extends React.Component {
         .then(resp => resp.json())
         .then(resp => {
           if (resp.hits.length === 0) {
-            throw new Error('нету данных, плохой запрос');
+            this.setState({ error: true });
           }
           return resp;
         })
-        .then(resp =>
+        .then(resp => {
           this.setState(prevState => {
             return { images: [...prevState.images, ...resp.hits] };
-          })
-        );
-    } catch (error) {
-      console.log(error);
+          });
+          return resp;
+        })
+        .then(resp => {
+          if (resp.totalHits <= this.state.images.length + resp.hits.length) {
+            this.setState({ endSearch: true });
+          }
+        });
     } finally {
       this.setState({ isLoading: false });
     }
   };
 
   onSubmit = name => {
-    this.setState({ name, page: 1, images: [] });
+    this.setState({
+      name,
+      page: 1,
+      images: [],
+      endSearch: false,
+      error: false,
+    });
   };
 
   onLoadMore = () => {
@@ -70,14 +82,21 @@ export class App extends React.Component {
     });
   };
 
+  closeModal = event => {
+    if (event.code === 'Escape') {
+      this.setState({ isModalOpen: false });
+    }
+    window.removeEventListener('keydown', this.closeModal);
+  };
+
   onModal = currentImage => {
-    this.setState(state => ({ isModalOpen: true, currentImage }));
+    this.setState({ isModalOpen: true, currentImage });
+    window.addEventListener('keydown', this.closeModal);
   };
 
   offModal = event => {
     if (event.target === event.currentTarget) {
-      console.log(event.code);
-      this.setState(state => ({ isModalOpen: false }));
+      this.setState({ isModalOpen: false });
     }
   };
 
@@ -95,11 +114,12 @@ export class App extends React.Component {
         }}
       >
         <Searchbar onSubmit={this.onSubmit} />
+        {this.state.error && <p>There aren't any results</p>}
         {this.state.images.length > 0 && (
           <ImageGallery images={this.state.images} onModal={this.onModal} />
         )}
         {this.state.isLoading && <Loader />}
-        {this.state.images.length > 0 && !this.state.isLoading && (
+        {this.state.images.length > 0 && !this.state.endSearch && (
           <Button onLoadMore={this.onLoadMore} />
         )}
         {this.state.isModalOpen && (

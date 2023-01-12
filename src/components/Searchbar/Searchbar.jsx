@@ -9,7 +9,7 @@ export default class Searchbar extends React.Component {
 
   handlerChangeName = event => {
     this.setState({
-      name: event.target.value,
+      name: event.target.value.trim(),
     });
   };
 
