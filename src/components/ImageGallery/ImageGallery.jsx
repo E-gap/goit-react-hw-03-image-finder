@@ -15,16 +15,14 @@ const ImageGallery = ({ images, onModal }) => {
       }}
     >
       {images.map(image => (
-        <li key={image.id}>
-          <ImageGalleryItem image={image} />
-        </li>
+        <ImageGalleryItem image={image} key={image.id} />
       ))}
     </ul>
   );
 };
 
 ImageGallery.propTypes = {
-  images: PropTypes.array,
+  images: PropTypes.array.isRequired,
   onModal: PropTypes.func.isRequired,
 };
 

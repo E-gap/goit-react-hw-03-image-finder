@@ -13,7 +13,10 @@ const Modal = ({ currentImage, offModal }) => {
 };
 
 Modal.propTypes = {
-  currentImage: PropTypes.object.isRequired,
+  currentImage: PropTypes.shape({
+    src: PropTypes.string.isRequired,
+    alt: PropTypes.string.isRequired,
+  }).isRequired,
   offModal: PropTypes.func.isRequired,
 };
 

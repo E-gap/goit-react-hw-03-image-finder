@@ -17,15 +17,6 @@ export class App extends React.Component {
     error: false,
   };
 
-  /* componentDidMount() {
-    window.addEventListener('keydown', event => {
-      console.log('hello');
-      if (event.code === 'Escape') {
-        this.setState({ isModalOpen: false });
-      }
-    });
-  } */
-
   componentDidUpdate(_, prevState) {
     if (
       prevState.name !== this.state.name ||
