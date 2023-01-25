@@ -5,6 +5,8 @@
   cursor: pointer;
   transition-property: background-color;
   transition: 250ms;
+  font-size: 15px;
+  padding: 5px;
 }
 
 .button:hover {

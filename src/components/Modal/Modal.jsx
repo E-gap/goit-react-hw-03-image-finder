@@ -2,22 +2,48 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import css from './Modal.module.css';
 
-const Modal = ({ currentImage, offModal }) => {
-  return (
-    <div className={css.overlay} onClick={offModal}>
-      <div className={css.modal}>
-        <img src={currentImage.src} alt={currentImage.alt} />
-      </div>
-    </div>
-  );
-};
+export class Modal extends React.Component {
+  state = {
+    isModalOpen: false,
+  };
 
-Modal.propTypes = {
-  currentImage: PropTypes.shape({
-    src: PropTypes.string.isRequired,
-    alt: PropTypes.string.isRequired,
-  }).isRequired,
-  offModal: PropTypes.func.isRequired,
-};
+  static propTypes = {
+    currentImage: PropTypes.shape({
+      src: PropTypes.string.isRequired,
+      alt: PropTypes.string.isRequired,
+    }).isRequired,
+    resetCurrentImage: PropTypes.func.isRequired,
+  };
 
-export default Modal;
+  componentDidMount() {
+    this.setState({ isModalOpen: true });
+    window.addEventListener('keydown', this.closeModalWindow);
+  }
+
+  closeModalWindow = event => {
+    if (event.code === 'Escape') {
+      this.setState({ isModalOpen: false });
+      this.props.resetCurrentImage();
+      window.removeEventListener('keydown', this.closeModal);
+    }
+    if (event.target === event.currentTarget) {
+      this.setState({ isModalOpen: false });
+      this.props.resetCurrentImage();
+    }
+  };
+
+  render() {
+    return (
+      this.state.isModalOpen && (
+        <div className={css.overlay} onClick={this.closeModalWindow}>
+          <div className={css.modal}>
+            <img
+              src={this.props.currentImage.src}
+              alt={this.props.currentImage.alt}
+            />
+          </div>
+        </div>
+      )
+    );
+  }
+}

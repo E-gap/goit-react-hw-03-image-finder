@@ -3,7 +3,7 @@ import Searchbar from './Searchbar/Searchbar.jsx';
 import ImageGallery from './ImageGallery/ImageGallery.jsx';
 import Button from './Button/Button.jsx';
 import Loader from './Loader/Loader.jsx';
-import Modal from './Modal/Modal.jsx';
+import { Modal } from './Modal/Modal.jsx';
 
 export class App extends React.Component {
   state = {
@@ -11,7 +11,6 @@ export class App extends React.Component {
     page: 1,
     images: [],
     isLoading: false,
-    isModalOpen: false,
     currentImage: { src: '', alt: '' },
     endSearch: false,
     error: false,
@@ -70,22 +69,14 @@ export class App extends React.Component {
     });
   };
 
-  closeModal = event => {
-    if (event.code === 'Escape') {
-      this.setState({ isModalOpen: false });
-    }
-    window.removeEventListener('keydown', this.closeModal);
+  resetCurrentImage = () => {
+    this.setState({
+      currentImage: { src: '', alt: '' },
+    });
   };
 
   onModal = currentImage => {
-    this.setState({ isModalOpen: true, currentImage });
-    window.addEventListener('keydown', this.closeModal);
-  };
-
-  offModal = event => {
-    if (event.target === event.currentTarget) {
-      this.setState({ isModalOpen: false });
-    }
+    this.setState({ currentImage });
   };
 
   render() {
@@ -111,8 +102,11 @@ export class App extends React.Component {
         {images.length > 0 && !endSearch && (
           <Button onLoadMore={this.onLoadMore} />
         )}
-        {this.state.isModalOpen && (
-          <Modal currentImage={currentImage} offModal={this.offModal} />
+        {this.state.currentImage.src && (
+          <Modal
+            currentImage={currentImage}
+            resetCurrentImage={this.resetCurrentImage}
+          />
         )}
       </div>
     );

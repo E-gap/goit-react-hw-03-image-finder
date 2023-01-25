@@ -34,7 +34,11 @@ export default class Searchbar extends React.Component {
     return (
       <header className={css.searchbar}>
         <form className={css.form} onSubmit={this.handlerSubmit}>
-          <button type="submit" className={css.button}>
+          <button
+            type="submit"
+            className={css.button}
+            disabled={!this.state.name ? true : false}
+          >
             <FcSearch className={css.icon} />
           </button>
 
