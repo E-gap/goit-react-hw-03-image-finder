@@ -1,6 +1,6 @@
 import React from 'react';
-import css from './Modal.module.css';
 import PropTypes from 'prop-types';
+import css from './Modal.module.css';
 
 const Modal = ({ currentImage, offModal }) => {
   return (
