@@ -20,11 +20,14 @@ export class Modal extends React.Component {
     window.addEventListener('keydown', this.closeModalWindow);
   }
 
+  componentDidUnMount() {
+    this.setState({ isModalOpen: false });
+    window.removeEventListener('keydown', this.closeModalWindow);
+  }
+
   closeModalWindow = event => {
     if (event.code === 'Escape') {
-      this.setState({ isModalOpen: false });
       this.props.resetCurrentImage();
-      window.removeEventListener('keydown', this.closeModal);
     }
     if (event.target === event.currentTarget) {
       this.setState({ isModalOpen: false });
