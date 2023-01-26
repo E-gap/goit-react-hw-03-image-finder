@@ -20,7 +20,7 @@ export class Modal extends React.Component {
     window.addEventListener('keydown', this.closeModalWindow);
   }
 
-  componentDidUnMount() {
+  componentWillUnmount() {
     this.setState({ isModalOpen: false });
     window.removeEventListener('keydown', this.closeModalWindow);
   }
